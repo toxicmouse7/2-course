@@ -4,13 +4,12 @@
 #include "IsField.hpp"
 
 int main()
-{
-	Set set1("set.txt");
+{	
+	Set set1("set2.txt");
 	
 	set1.showArr();
 	set1.showArrSum();
 	set1.showArrMult();
-	set1.showArrSum_test();
 
 	if (IsField(set1))
 		std::cout << "field" << std::endl;

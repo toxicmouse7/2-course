@@ -1,18 +1,19 @@
 #include "Set.hpp"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
-bool Set::IsInArray(const int a, const int b)
+bool Set::IsInArray(const std::string a, const std::string b)
 {
 	bool flag_a = false, flag_b = false;
-	for (int i = 0; i < this->power; ++i)
+	for (auto& mp : this->array)
 	{
-		if (a == this->array[i])
+		if (a == mp.second)
 		{
 			flag_a = true;
 		}
 
-		if (b == this->array[i])
+		if (b == mp.second)
 		{
 			flag_b = true;
 		}
@@ -24,9 +25,6 @@ bool Set::IsInArray(const int a, const int b)
 Set::Set()
 {
 	this->power = 0;
-	this->array = nullptr;
-	this->arraySum = nullptr;
-	this->arrayMult = nullptr;
 }
 
 Set::Set(std::string filename)
@@ -39,6 +37,17 @@ Set::Set(std::string filename)
 		*this = Set();
 		in_file.close();
 		return;
+	}
+	else
+	{
+		in_file.seekg(0, std::ios::end);
+		if (in_file.tellg() == 0)
+		{
+			std::cout << "File is empty. Creating empty set." << std::endl;
+			*this = Set();
+			in_file.close();
+			return;
+		}
 	}
 
 	std::string temp;
@@ -63,77 +72,63 @@ Set::Set(std::string filename)
 	}
 	else
 	{
-		this->array = new int[power];
 		std::getline(in_file, temp);
 
-		for (int i = 0; i < this->power; ++i)
 		{
-			this->array[i] = strtol(temp.c_str(), &endptr, 10);
+			std::istringstream is(temp);
+			std::string temp_string;
 
-			if (*endptr != ' ' && *endptr != '\0')
+			while (std::getline(is, temp_string, ' '))
 			{
-				std::cout << '"' << *endptr << "\" acquired while reading array. Closing..." << std::endl;
-				in_file.close();
-				exit(1);
-			}
-
-			if (i + 1 != this->power)
-				temp = endptr;
-		}
-
-		if (strlen(endptr) > 1)
-		{
-			std::cout << "Ignoring \"" << endptr << "\"..." << std::endl;
-		}
-
-		std::getline(in_file, temp);
-		this->arraySum = new int* [power];
-		
-		for (int i = 0; i < power; ++i)
-		{
-			this->arraySum[i] = new int[power];
-		}
-
-		for (int i = 0; i < this->power; ++i)
-		{
-			for (int j = 0; j < this->power; ++j)
-			{
-				this->arraySum[i][j] = strtol(temp.c_str(), &endptr, 10);
-				this->arSum[array[i]][array[j]] = this->arraySum[i][j];
-				
-				if (*endptr != ' ' && *endptr != '\0')
+				if (temp_string.size() > 1)
 				{
-					std::cout << '"' << *endptr << "\" acquired while reading array. Closing..." << std::endl;
-					in_file.close();
-					exit(1);
+					std::cout << '"' << temp_string << "\". Only 1 character allowed." << std::endl;
 				}
 
-				temp = endptr;
+				this->array[temp_string] = temp_string;
+			}
+		}
+
+
+		std::getline(in_file, temp);
+
+		{
+			std::istringstream is_j(temp);
+			std::string j_string;
+
+			for (auto& mp_i : this->array)
+			{
+				for (auto& mp_j : this->array)
+				{
+					std::getline(is_j, j_string, ' ');
+					this->arraySum[mp_i.second][mp_j.second] = j_string;
+
+					if (j_string.size() > 1)
+					{
+						std::cout << '"' << j_string << "\". Only 1 character allowed." << std::endl;
+					}
+				}
 			}
 		}
 
 		std::getline(in_file, temp);
-		this->arrayMult = new int* [power];
 
-		for (int i = 0; i < power; ++i)
 		{
-			this->arrayMult[i] = new int[power];
-		}
+			std::istringstream is_j(temp);
+			std::string j_string;
 
-		for (int i = 0; i < this->power; ++i)
-		{
-			for (int j = 0; j < this->power; ++j)
+			for (auto& mp_i : this->array)
 			{
-				this->arrayMult[i][j] = strtol(temp.c_str(), &endptr, 10);
-
-				if (*endptr != ' ' && *endptr != '\0')
+				for (auto& mp_j : this->array)
 				{
-					std::cout << '"' << *endptr << "\" acquired while reading array. Closing..." << std::endl;
-					in_file.close();
-					exit(1);
-				}
+					std::getline(is_j, j_string, ' ');
+					this->arrayMult[mp_i.second][mp_j.second] = j_string;
 
-				temp = endptr;
+					if (j_string.size() > 1)
+					{
+						std::cout << '"' << j_string << "\". Only 1 character allowed." << std::endl;
+					}
+				}
 			}
 		}
 	}
@@ -144,35 +139,18 @@ Set::Set(std::string filename)
 void Set::showArr()
 {
 	std::cout << "Array: ";
-	for (int i = 0; i < this->power; ++i)
+	for (auto& mp : this->array)
 	{
-		std::cout << this->array[i] << ' ';
+		std::cout << mp.second << ' ';
 	}
 	std::cout << std::endl << std::endl;
 }
 
 void Set::showArrSum()
 {
-	std::cout << "Array sum matrix: " << std::endl;
-	
-	for (int i = 0; i < this->power; ++i)
-	{
-		for (int j = 0; j < this->power; ++j)
-		{
-			std::cout << this->arraySum[i][j] << ' ';
-		}
-		
-		std::cout << std::endl;
-	}
-	
-	std::cout << std::endl;
-}
-
-void Set::showArrSum_test()
-{
 	std::cout << "Array sum map: " << std::endl;
 
-	for (auto& mp_2 : arSum)
+	for (auto& mp_2 : arraySum)
 	{
 		for (auto& mp_1 : mp_2.second)
 		{
@@ -181,37 +159,35 @@ void Set::showArrSum_test()
 		std::cout << std::endl;
 	}
 
-	
+	std::cout << std::endl;
 }
 
 void Set::showArrMult()
 {
 	std::cout << "Array mult matrix: " << std::endl;
 
-	for (int i = 0; i < this->power; ++i)
+	for (auto& mp_2 : arrayMult)
 	{
-		for (int j = 0; j < this->power; ++j)
+		for (auto& mp_1 : mp_2.second)
 		{
-			std::cout << this->arrayMult[i][j] << ' ';
+			std::cout << mp_1.second << ' ';
 		}
-
 		std::cout << std::endl;
 	}
 
 	std::cout << std::endl;
 }
-
-int Set::plus(const int a, const int b)
+std::string Set::plus(const std::string& a, const std::string& b)
 {	
-	return IsInArray(a, b) ? this->arraySum[a][b] : -1;
+	return IsInArray(a, b) ? this->arraySum[a][b] : "-1";
 }
 
-int Set::mult(const int a, const int b)
+std::string Set::mult(const std::string& a, const std::string& b)
 {
-	return IsInArray(a, b) ? this->arrayMult[a][b] : -1;
+	return IsInArray(a, b) ? this->arrayMult[a][b] : "-1";
 }
 
-const int Set::GetPower()
+const std::unordered_map<std::string, std::string> Set::GetArray()
 {
-	return this->power;
+	return this->array;
 }
