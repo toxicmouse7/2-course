@@ -48,6 +48,8 @@ Set::Set(std::string filename)
 			in_file.close();
 			return;
 		}
+
+		in_file.seekg(0, std::ios::beg);
 	}
 
 	std::string temp;
