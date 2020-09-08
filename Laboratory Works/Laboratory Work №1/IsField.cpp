@@ -1,39 +1,37 @@
 #include "IsField.hpp"
 
-bool IsField(Set& set)
+bool Assoc_Commut_Distrib(Set& set)
 {
-	std::string neutral_element_plus, neutral_element_mult;
-	bool associativity = true, commutativity = true, neutral = false, opposite = true, distributivity = true;
-
 	for (const auto& ar_i : set.GetArray())
 	{
 		for (const auto& ar_j : set.GetArray())
 		{
 			if (set.plus(ar_i.second, ar_j.second) != set.plus(ar_j.second, ar_i.second) || set.mult(ar_i.second, ar_j.second) != set.mult(ar_j.second, ar_i.second))
 			{
-				commutativity = false;
-				goto exit;
+				return false;
 			}
-			
+
 			for (const auto& ar_k : set.GetArray())
 			{
 				if (set.plus(set.plus(ar_i.second, ar_j.second), ar_k.second) != set.plus(set.plus(ar_k.second, ar_j.second), ar_i.second)
 					|| set.mult(set.mult(ar_i.second, ar_j.second), ar_k.second) != set.mult(set.mult(ar_k.second, ar_j.second), ar_i.second))
 				{
-					associativity = false;
-					goto exit;
+					return false;
 				}
 
 				if (set.mult(set.plus(ar_i.second, ar_j.second), ar_k.second) != set.plus(set.mult(ar_i.second, ar_k.second), set.mult(ar_j.second, ar_k.second)))
 				{
-					distributivity = false;
-					goto exit;
+					return false;
 				}
 			}
 		}
 	}
 
-	//Нейтральный элемент по сложению
+	return true;
+}
+
+bool NeutralElementPlus(Set& set, std::string& plus_element)
+{
 	for (const auto& ar_i : set.GetArray())
 	{
 		bool have_neutral = false;
@@ -56,7 +54,7 @@ bool IsField(Set& set)
 
 				if (have_neutral)
 				{
-					neutral_element_plus = ar_j.second;
+					plus_element = ar_j.second;
 					break;
 				}
 			}
@@ -64,19 +62,20 @@ bool IsField(Set& set)
 
 		if (have_neutral)
 		{
-			neutral = true;
-			break;
+			return true;
 		}
 		else
 		{
-			goto exit;
+			return false;
 		}
 	}
+}
 
-	//Нейтральный элемент по умножению
+bool NeutralElementMult(Set& set, const std::string& plus_element, std::string& mult_element)
+{
 	for (const auto& ar_i : set.GetArray())
 	{
-		if (ar_i.second == neutral_element_plus)
+		if (ar_i.second == plus_element)
 		{
 			continue;
 		}
@@ -85,20 +84,20 @@ bool IsField(Set& set)
 
 		for (const auto& ar_j : set.GetArray())
 		{
-			if (ar_j.second == neutral_element_plus)
+			if (ar_j.second == plus_element)
 			{
 				continue;
 			}
-			
+
 			if (set.mult(ar_i.second, ar_j.second) == ar_i.second)
 			{
 				for (const auto& ar_k : set.GetArray())
 				{
-					if (ar_k.second == neutral_element_plus)
+					if (ar_k.second == plus_element)
 					{
 						continue;
 					}
-					
+
 					if (set.mult(ar_k.second, ar_j.second) != ar_k.second)
 					{
 						have_neutral = false;
@@ -112,60 +111,58 @@ bool IsField(Set& set)
 
 				if (have_neutral)
 				{
-					neutral_element_mult = ar_j.second;
-					break;
+					mult_element = ar_j.second;
+					return true;
 				}
 			}
 		}
 
-		if (have_neutral)
-		{
-			neutral = true;
-			break;
-		}
-		else
-		{
-			goto exit;
-		}
+		return false;
 	}
+}
 
-	//Обратный элемент по сложению
+bool OppositeElementPlus(Set& set, const std::string& plus_element)
+{
 	for (const auto& ar_i : set.GetArray())
 	{
 		bool have_opposite_plus = false;
 		for (const auto& ar_j : set.GetArray())
 		{
-			if (set.plus(ar_i.second, ar_j.second) == neutral_element_plus)
+			if (set.plus(ar_i.second, ar_j.second) == plus_element)
 			{
 				have_opposite_plus = true;
 				break;
 			}
 		}
-		
+
 		if (!have_opposite_plus)
 		{
-			opposite = false;
-			goto exit;
+			return false;
 		}
 	}
 
-	//Обратный элемент по умножению
+	return true;
+}
+
+bool OppositeElementMult(Set& set, const std::string& plus_element, const std::string& mult_element)
+{
 	for (const auto& ar_i : set.GetArray())
 	{
-		if (ar_i.second == neutral_element_plus)
+		if (ar_i.second == plus_element)
 		{
 			continue;
 		}
-		
+
 		bool have_opposite_mult = false;
+		
 		for (const auto& ar_j : set.GetArray())
 		{
-			if (ar_j.second == neutral_element_plus)
+			if (ar_j.second == plus_element)
 			{
 				continue;
 			}
-			
-			if (set.mult(ar_i.second, ar_j.second) == neutral_element_mult)
+
+			if (set.mult(ar_i.second, ar_j.second) == mult_element)
 			{
 				have_opposite_mult = true;
 				break;
@@ -174,12 +171,39 @@ bool IsField(Set& set)
 
 		if (!have_opposite_mult)
 		{
-			opposite = false;
-			break;
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
-	
-	exit:
+}
 
-	return associativity && commutativity && distributivity && neutral && opposite;
+bool IsField(Set& set)
+{
+	std::string neutral_element_plus, neutral_element_mult;
+	
+	bool a_c_d = Assoc_Commut_Distrib(set);
+
+	if (!a_c_d)
+	{
+		return false;
+	}
+
+	bool neutral = NeutralElementPlus(set, neutral_element_plus) && NeutralElementMult(set, neutral_element_plus, neutral_element_mult);
+
+	if (!neutral)
+	{
+		return false;
+	}
+
+	bool opposite = OppositeElementPlus(set, neutral_element_plus) && OppositeElementMult(set, neutral_element_plus, neutral_element_mult);
+
+	if (!opposite)
+	{
+		return false;
+	}
+
+	return true;
 }

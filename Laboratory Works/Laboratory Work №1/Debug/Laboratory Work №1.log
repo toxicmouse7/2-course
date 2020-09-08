@@ -1,2 +1,9 @@
-﻿  Set.cpp
+﻿  IsField.cpp
+  Set.cpp
+  main.cpp
+  Создание кода...
+C:\Users\Алексей\source\repos\2-course\Laboratory Works\Laboratory Work №1\Set.cpp(119): warning C4715: Set::fill_matrix_mult: значение возвращается не при всех путях выполнения
+C:\Users\Алексей\source\repos\2-course\Laboratory Works\Laboratory Work №1\IsField.cpp(122): warning C4715: NeutralElementMult: значение возвращается не при всех путях выполнения
+C:\Users\Алексей\source\repos\2-course\Laboratory Works\Laboratory Work №1\IsField.cpp(72): warning C4715: NeutralElementPlus: значение возвращается не при всех путях выполнения
+C:\Users\Алексей\source\repos\2-course\Laboratory Works\Laboratory Work №1\IsField.cpp(181): warning C4715: OppositeElementMult: значение возвращается не при всех путях выполнения
   Laboratory Work №1.vcxproj -> C:\Users\Алексей\source\repos\2-course\Laboratory Works\Debug\Laboratory Work №1.exe

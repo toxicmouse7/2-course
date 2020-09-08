@@ -5,7 +5,7 @@
 
 int main()
 {	
-	Set set1("set2.txt");
+	Set set1("set.txt");
 	
 	set1.showArr();
 	set1.showArrSum();
