@@ -56,12 +56,12 @@ bool Set::fill_array(std::ifstream& in_file)
 
 	while (std::getline(is, temp_string, ' '))
 	{
-		if (temp_string.size() > 1)
+		/*if (temp_string.size() > 1)
 		{
 			std::cout << '"' << temp_string << "\". Only 1 character allowed. Creating empty set." << std::endl;
 			in_file.close();
 			return false;
-		}
+		}*/
 
 		this->array[temp_string] = temp_string;
 	}
@@ -84,12 +84,12 @@ bool Set::fill_matrix_plus(std::ifstream& in_file)
 			std::getline(is_j, j_string, ' ');
 			this->arraySum[mp_i.second][mp_j.second] = j_string;
 
-			if (j_string.size() > 1)
+			/*if (j_string.size() > 1)
 			{
 				std::cout << '"' << j_string << "\". Only 1 character allowed. Creating empty set." << std::endl;
 				in_file.close();
 				return false;
-			}
+			}*/
 		}
 	}
 
@@ -111,14 +111,16 @@ bool Set::fill_matrix_mult(std::ifstream& in_file)
 			std::getline(is_j, j_string, ' ');
 			this->arrayMult[mp_i.second][mp_j.second] = j_string;
 
-			if (j_string.size() > 1)
+			/*if (j_string.size() > 1)
 			{
 				std::cout << '"' << j_string << "\". Only 1 character allowed. Creating empty set." << std::endl;
 				in_file.close();
 				return false;
-			}
+			}*/
 		}
 	}
+
+	return true;
 }
 
 bool Set::IsInArray(const std::string a, const std::string b)
