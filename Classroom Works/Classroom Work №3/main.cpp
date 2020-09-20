@@ -1,24 +1,23 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <filesystem>
 #include <vector>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
-bool comparator(std::pair<fs::path, int> p1, std::pair<fs::path, int> p2)
+bool comparator(const std::pair<fs::path, int> p1, const std::pair<fs::path, int> p2)
 {
 	return p1.second < p2.second;
 }
 
 int main(int argc, char* argv[])
 {
-	fs::path directory = "D:/Gladkov Aleksey MK-201/Aud 3/Directory";
+	fs::path directory = fs::current_path();
 	std::vector<std::pair<fs::path, int>> files;
 
 	for (auto& p : fs::directory_iterator(directory))
 	{
-		files.push_back(std::make_pair(p, fs::file_size(p)));
+		files.emplace_back(std::make_pair(p, fs::file_size(p)));
 	}
 
 	std::sort(files.begin(), files.end(), comparator);
