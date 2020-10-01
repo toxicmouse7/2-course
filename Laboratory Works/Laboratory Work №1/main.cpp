@@ -6,11 +6,11 @@
 
 int main()
 {	
-	Set set1("field.txt");
+	Set set1("set.txt");
 	
 	set1.showArr();
-	/*set1.showArrSum();
-	set1.showArrMult();*/
+	set1.showArrSum();
+	set1.showArrMult();
 
 	time_t start = time(NULL);
 	if (IsField(set1))
