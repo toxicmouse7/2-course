@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	disp2.cb = sizeof(DISPLAY_DEVICEA);
 	
 	EnumDisplayDevicesA(NULL, 0, &disp1, EDD_GET_DEVICE_INTERFACE_NAME);
-	EnumDisplayDevicesA(disp1.DeviceString, 0, &disp2, EDD_GET_DEVICE_INTERFACE_NAME);
+	EnumDisplayDevicesA(disp1.DeviceName, 0, &disp2, EDD_GET_DEVICE_INTERFACE_NAME);
 
 	while (EnumDisplayDevices(NULL, index, &disp, EDD_GET_DEVICE_INTERFACE_NAME))
 	{
