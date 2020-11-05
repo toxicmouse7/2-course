@@ -22,14 +22,14 @@ private:
 	int angle = 0;
 	std::vector<std::tuple<int, int, int>> cube
 	{
-		std::make_tuple(135 + 100, 110 + 100, 0),
-		std::make_tuple(185 + 100, 110 + 100, 0),
-		std::make_tuple(160 + 100, 160 + 100, 0),
-		std::make_tuple(110 + 100, 160 + 100, 0),
-		std::make_tuple(135 + 100, 110 + 100, 50),
-		std::make_tuple(185 + 100, 110 + 100, 50),
-		std::make_tuple(160 + 100, 160 + 100, 50),
-		std::make_tuple(110 + 100, 160 + 100, 50)
+		std::make_tuple(25, 10, 0),
+		std::make_tuple(75, 10, 0),
+		std::make_tuple(50, 60, 0),
+		std::make_tuple(0, 60, 0),
+		std::make_tuple(25, 10, 50),
+		std::make_tuple(75, 10, 50),
+		std::make_tuple(50, 60, 50),
+		std::make_tuple(0, 60, 50)
 	};
 
 private slots:

@@ -17,6 +17,7 @@ void MainWindow::Paint()
 {
 	QPainter painter(pixmap.data());
 	painter.setPen(QPen(Qt::red, 4, Qt::SolidLine));
+	painter.translate(pixmap->width() / 2, pixmap->height() / 2);
 
 	//Upside rect
 	for (int i = 4; i < 8; ++i)
