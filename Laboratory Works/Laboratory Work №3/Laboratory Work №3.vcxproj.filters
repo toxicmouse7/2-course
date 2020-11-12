@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+    <ClCompile Include="BilateralFilter.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Исходный код">
+      <UniqueIdentifier>{507aae77-3167-455e-bd94-ce04e3bf511c}</UniqueIdentifier>
+      <Extensions>c;cpp</Extensions>
+    </Filter>
+    <Filter Include="Заголовочные файлы">
+      <UniqueIdentifier>{422e9e40-019f-4634-9235-c4583cfdfc1f}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ресурсы">
+      <UniqueIdentifier>{1a97a458-a228-4c57-933e-f232dd0d5d55}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MainWindow.h">
+      <Filter>Заголовочные файлы</Filter>
+    </QtMoc>
+    <QtMoc Include="BilateralFilter.h">
+      <Filter>Заголовочные файлы</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="MainWindow.ui">
+      <Filter>Ресурсы</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="MainWindow.qrc">
+      <Filter>Ресурсы</Filter>
+    </QtRcc>
+  </ItemGroup>
+</Project>

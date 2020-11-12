@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+    <ClCompile Include="VKApi.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+    <ClCompile Include="api.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+    <ClCompile Include="attachment.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+    <ClCompile Include="messages.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="VKApi.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="VKApi.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Исходный код">
+      <UniqueIdentifier>{b65d772e-787e-445a-820c-c938079c2837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы">
+      <UniqueIdentifier>{de2f3780-c551-4f0d-8f9e-5695403ecc6e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="VKApi.h">
+      <Filter>Заголовочные файлы</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="json.hpp">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="api.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="attachment.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="messages.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

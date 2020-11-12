@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Laboratory Work №1", "Lab
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Laboratory Work №2", "Laboratory Work №2\Laboratory Work №2.vcxproj", "{7D10BE8C-2E9E-4BDC-A602-7EF13DA156FB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VK Api", "VK Api\VK Api.vcxproj", "{1BD5C36B-AC94-40AA-B267-395580B44DA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,12 @@ Global
 		{7D10BE8C-2E9E-4BDC-A602-7EF13DA156FB}.Release|x64.Build.0 = Release|x64
 		{7D10BE8C-2E9E-4BDC-A602-7EF13DA156FB}.Release|x86.ActiveCfg = Release|Win32
 		{7D10BE8C-2E9E-4BDC-A602-7EF13DA156FB}.Release|x86.Build.0 = Release|Win32
+		{1BD5C36B-AC94-40AA-B267-395580B44DA0}.Debug|x64.ActiveCfg = Debug|x64
+		{1BD5C36B-AC94-40AA-B267-395580B44DA0}.Debug|x64.Build.0 = Debug|x64
+		{1BD5C36B-AC94-40AA-B267-395580B44DA0}.Debug|x86.ActiveCfg = Debug|x64
+		{1BD5C36B-AC94-40AA-B267-395580B44DA0}.Release|x64.ActiveCfg = Release|x64
+		{1BD5C36B-AC94-40AA-B267-395580B44DA0}.Release|x64.Build.0 = Release|x64
+		{1BD5C36B-AC94-40AA-B267-395580B44DA0}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
