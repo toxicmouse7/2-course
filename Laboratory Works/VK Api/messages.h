@@ -19,7 +19,7 @@ public:
     bool parse(const json &data);
 
     inline std::string dump() {
-        return "[" + title + " | " + std::to_string(chat_id) + "] " + body;
+        return "[" + title + "] " + body;
     }
 
     virtual ~DialogInfo() {}
@@ -36,6 +36,8 @@ public:
      */
     vector_dialogs get_dialogs( const size_t count = 20,
                                 const size_t offset = 0);
+
+	vector_dialogs get_conversations();
 
     /* return vector_dialogs. if max_count == 0 return all dialogs
      */

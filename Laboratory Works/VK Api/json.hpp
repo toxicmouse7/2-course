@@ -108,6 +108,8 @@ SOFTWARE.
     #define JSON_UNLIKELY(x)    x
 #endif
 
+#undef min
+#undef max
 /*!
 @brief namespace for Niels Lohmann
 @see https://github.com/nlohmann

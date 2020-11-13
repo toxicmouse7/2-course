@@ -44,8 +44,8 @@ VK::vector_dialogs VK::Messages::get_dialogs(const size_t count, const size_t of
     VK::params_map params = {
         {"count", std::to_string(count)},
         {"offset", std::to_string(offset)},
-        {"preview_length", "1"},
-
+        {"preview_length", "20"},
+        {"unread", "1"},
     };
 
     json jres = call("messages.getDialogs", params);
@@ -76,6 +76,45 @@ VK::vector_dialogs VK::Messages::get_dialogs(const size_t count, const size_t of
     }
 
     return std::move(res);
+}
+
+VK::vector_dialogs VK::Messages::get_conversations()
+{
+    VK::vector_dialogs result;
+	
+	VK::params_map params =
+        {
+        	{"count", "30"},
+        	{"filter", "unread"},
+        };
+
+	json jres = call("messages.getConversations", params);
+
+    if (jres == nullptr)
+    {
+	    return std::move(result);
+    }
+
+	json items = jres.at("response").get<json>().at("items").get<json>();
+
+	for (json::iterator it = items.begin(); it != items.end(); ++it) {
+            json item = it.value();
+            if(item.find("message") == item.end())
+                continue;
+            item = item.at("message").get<json>();
+            VK::DialogInfo dialog;
+            if(dialog.parse(item)) {
+
+                if(dialog.title.empty()) {
+                    dialog.title = (dialog.is_chat) ?
+                                get_chat_title(dialog.chat_id) : get_username(dialog.chat_id);
+                }
+
+                result.push_back(std::move(dialog));
+            }
+        }
+	
+	return std::move(result);
 }
 
 VK::vector_dialogs VK::Messages::get_all_dialogs(const size_t max_count) {
