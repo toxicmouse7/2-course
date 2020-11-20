@@ -16,6 +16,9 @@
     <ClCompile Include="messages.cpp">
       <Filter>Исходный код</Filter>
     </ClCompile>
+    <ClCompile Include="PixmapLoader.cpp">
+      <Filter>Исходный код</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="VKApi.qrc" />
@@ -33,6 +36,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VKApi.h">
+      <Filter>Заголовочные файлы</Filter>
+    </QtMoc>
+    <QtMoc Include="PixmapLoader.h">
       <Filter>Заголовочные файлы</Filter>
     </QtMoc>
   </ItemGroup>

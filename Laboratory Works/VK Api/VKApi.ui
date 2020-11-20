@@ -32,7 +32,7 @@
    <string>VKApi</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLineEdit" name="login">
+   <widget class="QLineEdit" name="loginField">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -42,7 +42,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="password">
+   <widget class="QLineEdit" name="passwordField">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -68,28 +68,7 @@
      <string>Login</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>90</y>
-      <width>800</width>
-      <height>330</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="login">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -102,7 +81,7 @@
      <string>Login:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="password">
     <property name="geometry">
      <rect>
       <x>16</x>
@@ -114,6 +93,28 @@
     <property name="text">
      <string>Password: </string>
     </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>80</y>
+      <width>701</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="msgLayout"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>80</y>
+      <width>111</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

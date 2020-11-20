@@ -6,10 +6,15 @@
 #include <QInputDialog>
 #include <QString>
 #include <QTimer>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPixmap>
 
 #include "ui_VKApi.h"
 #include "api.h"
 #include "messages.h"
+#include "PixmapLoader.h"
 
 class VKApi : public QMainWindow
 {
@@ -22,6 +27,8 @@ private:
     Ui::VKApiClass ui;
 	QScopedPointer<VK::Messages> vk_messages;
 	QScopedPointer<QTimer> timer;
+	QScopedPointer<PixmapLoader> pixmap_loader_;
+	QVector<QHBoxLayout*> layouts_; 
 	
 	static std::string fa2_callback();
     static std::string captcha_callback(const std::string &captcha_sid);

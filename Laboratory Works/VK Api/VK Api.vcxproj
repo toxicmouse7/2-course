@@ -68,14 +68,14 @@
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;network</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtHeaderSearchPath>C:\Users\Алексей\Desktop\curl-7.73.0\builds\x64 Debug\include;$(QtHeaderSearchPath)</QtHeaderSearchPath>
     <QtLibrarySearchPath>C:\Users\Алексей\Desktop\curl-7.73.0\builds\x64 Debug\lib</QtLibrarySearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;network</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtHeaderSearchPath>C:\Users\Алексей\Desktop\curl-7.73.0\builds\x64 Release\include;$(QtHeaderSearchPath)</QtHeaderSearchPath>
     <QtLibrarySearchPath>C:\Users\Алексей\Desktop\curl-7.73.0\builds\x64 Release\lib;$(QtLibrarySearchPath)</QtLibrarySearchPath>
@@ -117,6 +117,7 @@
     <ClCompile Include="api.cpp" />
     <ClCompile Include="attachment.cpp" />
     <ClCompile Include="messages.cpp" />
+    <ClCompile Include="PixmapLoader.cpp" />
     <ClCompile Include="VKApi.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -125,6 +126,7 @@
     <ClInclude Include="attachment.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="messages.h" />
+    <QtMoc Include="PixmapLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

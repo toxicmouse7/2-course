@@ -13,10 +13,16 @@ class DialogInfo: public Attachment::DataModel {
 public:
     bool is_chat = false;
     int chat_id;
+	int from_id = 0;
     std::string body;
     std::string title;
+	std::string photo_url;
 
     bool parse(const json &data);
+	bool parse(const json &data1, const json &data2);
+	bool parse_last_message(const json &data);
+	bool parse_conversation(const json &data);
+	bool operator==(const DialogInfo& dialog_info);
 
     inline std::string dump() {
         return "[" + title + "] " + body;

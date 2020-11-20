@@ -34,6 +34,105 @@ bool VK::DialogInfo::parse(const json &data) {
     return false;
 }
 
+bool VK::DialogInfo::parse(const json& data1, const json& data2)
+{
+	if(data1 == nullptr || data2 == nullptr) {
+        return false;
+    }
+
+	json item_last_msg = data1.at("last_message").get<json>();
+	json item_conversation = data1.at("conversation").get<json>();
+
+    try {
+        if (item_conversation.at("peer").get<json>().at("type").get<string>() == "user")
+    	{
+    		this->chat_id = item_conversation.at("peer").get<json>().at("id").get<int>();
+    		this->is_chat = false;
+    	}
+        else
+        {
+	        this->chat_id = item_conversation.at("peer").get<json>().at("id").get<int>() + chat_offset;
+        	this->is_chat = true;
+        }
+        if(is_chat) {
+            this->title = item_conversation.at("chat_settings").get<json>().at("title").get<string>();
+        	this->from_id = item_last_msg.at("from_id").get<int>();
+        	photo_url = item_conversation.at("photo").get<json>().at("photo_50").get<string>();
+        }
+        else
+        {
+	        photo_url = data2.at("photo_50").get<string>();
+        }
+        this->body = item_last_msg.at("text").get<string>();
+        if(body.empty()) {
+            body = "...";
+        }
+        return true;
+    }
+    catch(...) {
+
+    }
+
+    return false;
+}
+
+bool VK::DialogInfo::parse_last_message(const json& data)
+{
+	if (data == nullptr)
+	{
+		return false;
+	}
+
+	try
+	{
+        this->body = data.at("text").get<string>();
+        this->chat_id = data.at("from_id").get<int>();
+
+		return true;
+	}
+	catch (...)
+	{
+		
+	}
+
+	return false;
+}
+
+bool VK::DialogInfo::parse_conversation(const json& data)
+{
+	if (data == nullptr)
+	{
+		return false;
+	}
+
+	auto type = data.at("peer").get<json>().at("type").get<string>();
+
+	try
+	{
+		if (type == "user")
+		{
+			this->is_chat = false;
+		}
+        else
+        {
+	        this->is_chat = true;
+        }
+	}
+	catch (...)
+	{
+		
+	}
+
+	return false;
+}
+
+bool VK::DialogInfo::operator==(const DialogInfo& dialog_info)
+{
+	if (this->body == dialog_info.body && this->chat_id == dialog_info.chat_id && this->photo_url == dialog_info.photo_url)
+        return true;
+	return false;
+}
+
 VK::vector_dialogs VK::Messages::get_dialogs(const size_t count, const size_t offset) {
     VK::vector_dialogs res;
 
@@ -86,6 +185,7 @@ VK::vector_dialogs VK::Messages::get_conversations()
         {
         	{"count", "30"},
         	{"filter", "unread"},
+        	{"extended", "1"}
         };
 
 	json jres = call("messages.getConversations", params);
@@ -95,24 +195,37 @@ VK::vector_dialogs VK::Messages::get_conversations()
 	    return std::move(result);
     }
 
-	json items = jres.at("response").get<json>().at("items").get<json>();
+	if (jres.find("error") == jres.end())
+	{
+		json items = jres.at("response").get<json>().at("items").get<json>();
+    	json profiles = jres.at("response").get<json>().at("profiles").get<json>();
 
-	for (json::iterator it = items.begin(); it != items.end(); ++it) {
-            json item = it.value();
-            if(item.find("message") == item.end())
-                continue;
-            item = item.at("message").get<json>();
-            VK::DialogInfo dialog;
-            if(dialog.parse(item)) {
+    	for (json::iterator it = items.begin(), it_p = profiles.begin(); it != items.end(); ++it, ++it_p)
+    	{
+    		json item = it.value();
+    		json profile = it_p.value();
+    		if(item.find("last_message") == item.end())
+    			continue;
+    		VK::DialogInfo dialog;
+    		if(dialog.parse(item, profile)) {
 
-                if(dialog.title.empty()) {
-                    dialog.title = (dialog.is_chat) ?
-                                get_chat_title(dialog.chat_id) : get_username(dialog.chat_id);
+    			if (dialog.is_chat)
+    			{
+    				dialog.title += ": " + get_username(dialog.from_id);
+    			}
+                else
+                {
+	                dialog.title = get_username(dialog.chat_id);
                 }
+    			/*if(dialog.title.empty()) {
+    				dialog.title = (dialog.is_chat) ?
+                                get_chat_title(dialog.chat_id) : get_username(dialog.chat_id);
+    			}*/
 
-                result.push_back(std::move(dialog));
-            }
-        }
+    			result.push_back(std::move(dialog));
+    		}
+    	}
+	}
 	
 	return std::move(result);
 }
