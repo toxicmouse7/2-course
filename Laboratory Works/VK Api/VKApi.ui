@@ -114,7 +114,7 @@
       <height>361</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout"/>
+    <layout class="QVBoxLayout" name="photoLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

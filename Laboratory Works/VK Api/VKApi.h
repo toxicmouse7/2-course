@@ -27,8 +27,9 @@ private:
     Ui::VKApiClass ui;
 	QScopedPointer<VK::Messages> vk_messages;
 	QScopedPointer<QTimer> timer;
-	QScopedPointer<PixmapLoader> pixmap_loader_;
-	QVector<QHBoxLayout*> layouts_; 
+	QVector<PixmapLoader*> pixmap_loaders_;
+	QVector<QLabel*> msg_labels_;
+	QVector<QLabel*> photo_labels_;
 	
 	static std::string fa2_callback();
     static std::string captcha_callback(const std::string &captcha_sid);
